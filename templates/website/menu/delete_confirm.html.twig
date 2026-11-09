@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Изтриване на menu item</h4>
+                    <p class="text-muted">Сигурни ли сте, че искате да изтриете „{{ menu.title }}“ (ID: {{ menu.id }})?</p>
+                    <form method="post">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete-menu-' ~ menu.id) }}">
+                        <button type="submit" class="btn btn-danger">Изтрий</button>
+                        <a href="{{ path('website_menu_tree') }}" class="btn btn-secondary">Отказ</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

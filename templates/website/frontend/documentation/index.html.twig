@@ -1,0 +1,92 @@
+{% extends 'website/frontend/main_skin.html.twig' %}
+
+{% block html_page_title %}{{ 'page_title'|trans({}, 'website_documentation') }}{% endblock %}
+
+{% block meta_seo %}
+    {% set hreflang_urls = {} %}
+    {% for lngCode in lngs %}
+        {% set hreflang_urls = hreflang_urls|merge({
+            (lngCode): absolute_url(path('website_documentation_index', {_locale: lngCode}))
+        }) %}
+    {% endfor %}
+    {% include 'website/frontend/_seo_meta.html.twig' with {
+        seo_title: block('html_page_title'),
+        seo_description: ('intro'|trans({}, 'website_documentation')),
+        seo_keywords: '',
+        seo_type: 'website',
+        canonical_url: app.request.schemeAndHttpHost ~ app.request.pathInfo,
+        hreflang_urls: hreflang_urls,
+        seo_schemas: []
+    } only %}
+{% endblock %}
+
+{% block body %}
+<section class="bg-half-170 bg-light d-table w-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="title mb-3">{{ 'title'|trans({}, 'website_documentation') }}</h1>
+                <p class="text-muted para-desc mx-auto mb-0">
+                    {{ 'intro'|trans({}, 'website_documentation') }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        {% for section in sections %}
+            <div class="row {% if not loop.first %}mt-5 pt-2{% endif %}">
+                <div class="col-12 mb-4">
+                    <h3 class="mb-2">{{ section.title }}</h3>
+                    {% if section.description %}
+                        <p class="text-muted mb-0">{{ section.description }}</p>
+                    {% endif %}
+                </div>
+                {% for module in section.modules %}
+                    <div class="col-lg-4 col-md-6 mb-4 pb-2">
+                        <div class="card border-0 features feature-clean course-feature p-4 position-relative overflow-hidden shadow rounded h-100">
+                            <div class="card-body p-0 content">
+                                {% if module.type is defined and module.type == 'group' %}
+                                    <h5 class="mb-2 title text-dark">{{ module.title }}</h5>
+                                    {% if module.summary %}
+                                        <p class="text-muted mb-3 small" style="display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;">
+                                            {{ module.summary }}
+                                        </p>
+                                    {% endif %}
+                                    <div class="d-flex flex-wrap gap-3">
+                                        {% for page in module.pages %}
+                                            <a href="{{ path('website_documentation_show', {section: page.section, slug: page.slug}) }}" class="text-primary small">
+                                                {{ page.title }} <i class="uil uil-angle-right-b align-middle"></i>
+                                            </a>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <h5 class="mb-2">
+                                        <a href="{{ path('website_documentation_show', {section: module.section, slug: module.slug}) }}" class="title text-dark">
+                                            {{ module.title }}
+                                        </a>
+                                    </h5>
+                                    {% if module.summary %}
+                                        <p class="text-muted mb-3 small" style="display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;">
+                                            {{ module.summary }}
+                                        </p>
+                                    {% endif %}
+                                    <a href="{{ path('website_documentation_show', {section: module.section, slug: module.slug}) }}" class="text-primary small">
+                                        {{ 'read_more'|trans({}, 'website_documentation') }} <i class="uil uil-angle-right-b align-middle"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-12">
+                        <p class="text-muted">{{ 'empty_section'|trans({}, 'website_documentation') }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

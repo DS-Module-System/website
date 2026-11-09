@@ -1,0 +1,82 @@
+{#
+  Expected variables:
+  - seo_title (string, required)
+  - seo_description (string, optional)
+  - seo_keywords (string, optional)
+  - seo_image (absolute URL, optional)
+  - seo_type (website|article, default website)
+  - canonical_url (absolute URL, optional)
+  - hreflang_urls (map locale => absolute URL, optional)
+  - seo_schemas (list of JSON-LD objects, optional)
+#}
+{% set seo_title = seo_title|default(site_name)|striptags|trim %}
+{% set seo_description = seo_description|default('')|striptags|trim %}
+{% set seo_keywords = seo_keywords|default('')|striptags|trim %}
+{% set seo_type = seo_type|default('website') %}
+{% set seo_image = seo_image|default(absolute_url(asset('website/frontend/images/ds-module-system-logo2.png'))) %}
+{% set canonical_url = canonical_url|default(app.request.schemeAndHttpHost ~ app.request.pathInfo) %}
+{% set hreflang_urls = hreflang_urls|default({}) %}
+{% set seo_schemas = seo_schemas|default([]) %}
+{% set og_locale_map = {bg: 'bg_BG', en: 'en_US'} %}
+{% set current_og_locale = og_locale_map[app.request.locale]|default('bg_BG') %}
+{% set site_url = app.request.schemeAndHttpHost %}
+
+{% if seo_description %}
+    <meta name="description" content="{{ seo_description }}"/>
+{% endif %}
+{% if seo_keywords %}
+    <meta name="keywords" content="{{ seo_keywords }}"/>
+{% endif %}
+
+<link rel="canonical" href="{{ canonical_url }}"/>
+{% for locale, href in hreflang_urls %}
+    <link rel="alternate" hreflang="{{ locale }}" href="{{ href }}"/>
+{% endfor %}
+{% if hreflang_urls.bg is defined %}
+    <link rel="alternate" hreflang="x-default" href="{{ hreflang_urls.bg }}"/>
+{% elseif hreflang_urls is not empty %}
+    <link rel="alternate" hreflang="x-default" href="{{ hreflang_urls|first }}"/>
+{% endif %}
+
+<meta property="og:site_name" content="{{ site_name }}"/>
+<meta property="og:title" content="{{ seo_title }}"/>
+<meta property="og:type" content="{{ seo_type }}"/>
+<meta property="og:url" content="{{ canonical_url }}"/>
+<meta property="og:locale" content="{{ current_og_locale }}"/>
+{% for locale, href in hreflang_urls %}
+    {% if locale != app.request.locale and og_locale_map[locale] is defined %}
+        <meta property="og:locale:alternate" content="{{ og_locale_map[locale] }}"/>
+    {% endif %}
+{% endfor %}
+{% if seo_description %}
+    <meta property="og:description" content="{{ seo_description }}"/>
+{% endif %}
+<meta property="og:image" content="{{ seo_image }}"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="{{ seo_title }}"/>
+{% if seo_description %}
+    <meta name="twitter:description" content="{{ seo_description }}"/>
+{% endif %}
+<meta name="twitter:image" content="{{ seo_image }}"/>
+
+{% set base_schemas = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        'name': site_name,
+        'url': site_url,
+        'logo': absolute_url(asset('website/frontend/images/ds-module-system-logo2.png')),
+        'sameAs': ['https://github.com/DS-Module-System']
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        'name': site_name,
+        'url': site_url,
+        'inLanguage': app.request.locale
+    }
+] %}
+{% for schema in base_schemas|merge(seo_schemas) %}
+    <script type="application/ld+json">{{ schema|json_encode|raw }}</script>
+{% endfor %}

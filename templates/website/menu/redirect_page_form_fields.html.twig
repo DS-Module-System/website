@@ -1,0 +1,17 @@
+{% import 'core/default_templates/form_table_macro.html.twig' as form_table %}
+
+{{ form_table.tr(form.title) }}
+{{ form_table.tr_lngs('isActive', form.lngs, true) }}
+
+{{ form_table.tr(form.url) }}
+{{ form_table.tr_lngs('url', form.lngs) }}
+
+{{ form_table.tr(form.tags) }}
+
+{{ form_table.tr_lngs('menuTitle', form.lngs) }}
+
+{{ form_table.tr(form.targetBlank) }}
+
+{{ form_table.tr(form.redirectToMenu) }}
+
+{{ form_table.tr_lngs('redirectToUrl', form.lngs) }}

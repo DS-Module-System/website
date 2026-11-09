@@ -1,0 +1,44 @@
+<nav class="docs-sidebar">
+    <div class="mb-3">
+        <a href="{{ path('website_documentation_index') }}" class="text-primary small">
+            <i class="uil uil-arrow-left"></i> {{ 'all_modules'|trans({}, 'website_documentation') }}
+        </a>
+    </div>
+    {% for section in sections %}
+        <h6 class="text-uppercase text-muted mb-2 mt-3">{{ section.title }}</h6>
+        <ul class="list-unstyled docs-nav mb-0">
+            {% for module in section.modules %}
+                {% if module.type is defined and module.type == 'group' %}
+                    {% set groupActive = false %}
+                    {% for page in module.pages %}
+                        {% if currentSection is defined and currentSlug is defined and currentSection == page.section and currentSlug == page.slug %}
+                            {% set groupActive = true %}
+                        {% endif %}
+                    {% endfor %}
+                    <li class="mb-2">
+                        <div class="py-1 {% if groupActive %}text-primary fw-semibold{% else %}text-dark{% endif %} small">
+                            {{ module.title }}
+                        </div>
+                        <ul class="list-unstyled ms-3 mb-0">
+                            {% for page in module.pages %}
+                                <li class="mb-1">
+                                    <a href="{{ path('website_documentation_show', {section: page.section, slug: page.slug}) }}"
+                                       class="d-block py-1 {% if currentSection is defined and currentSlug is defined and currentSection == page.section and currentSlug == page.slug %}text-primary fw-semibold{% else %}text-dark{% endif %}">
+                                        {{ page.title }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="mb-1">
+                        <a href="{{ path('website_documentation_show', {section: module.section, slug: module.slug}) }}"
+                           class="d-block py-1 {% if currentSection is defined and currentSlug is defined and currentSection == module.section and currentSlug == module.slug %}text-primary fw-semibold{% else %}text-dark{% endif %}">
+                            {{ module.title }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</nav>

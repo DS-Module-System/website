@@ -1,0 +1,48 @@
+{% extends '/website/frontend/cms_base.html.twig' %}
+
+{% block cms_content %}
+<!-- Hero Start -->
+<section class="vh-100 d-flex align-items-center" style="background: url('{{ asset('website/frontend/images/contact-detail.jpg') }}') center center;">
+    <div class="bg-overlay bg-overlay-white"></div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 offset-lg-6 col-md-7 offset-md-5">
+                <div class="title-heading mt-5 pt-4">
+                    <h1 class="heading">{{ activeMenuItem['contentTitle'] ?? 'Свържете се с нас' }}</h1>
+                    <p class="text-dark">Имате въпроси за <span class="text-primary fw-bold">DS ERP Module System</span>? Попълнете формата или ни пишете на имейл.</p>
+
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label == 'error' ? 'danger' : label }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    {{ form_start(form, {'attr': {'class': 'mt-4'}}) }}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">{{ form_row(form.name) }}</div>
+                            <div class="col-md-6 mb-3">{{ form_row(form.email) }}</div>
+                            <div class="col-12 mb-3">{{ form_row(form.subject) }}</div>
+                            <div class="col-12 mb-3">{{ form_row(form.message) }}</div>
+                            <div class="col-12">{{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}</div>
+                        </div>
+                    {{ form_end(form) }}
+
+                    <div class="d-flex contact-detail align-items-center mt-4">
+                        <div class="icon">
+                            <i data-feather="mail" class="fea icon-m-md text-dark me-3"></i>
+                        </div>
+                        <div class="flex-1 content">
+                            <h5 class="title fw-bold mb-0">Имейл</h5>
+                            <a href="mailto:support@dsmodulesystem.com" class="text-primary">support@dsmodulesystem.com</a>
+                        </div>
+                    </div>
+
+                    <ul class="list-unstyled social-icon mb-0 mt-4">
+                        <li class="list-inline-item"><a href="https://github.com/DS-Module-System" target="_blank" rel="noopener" class="rounded" title="GitHub"><i data-feather="github" class="fea icon-sm fea-social"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,367 @@
+{% extends '/website/frontend/cms_base.html.twig' %}
+
+{% block cms_content %}
+<!-- Hero Start -->
+<section class="bg-half-170 bg-light d-table w-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-12">
+                <div class="title-heading">
+                    <span class="badge rounded-pill bg-soft-primary">Open Source</span>
+                    <h1 class="fw-bold mt-2 mb-3">Пълна<br>ERP модулна система</h1>
+                    <p class="para-desc text-muted">Модулна система за управление на предприятието. Управление на продукти, складове, поръчки, фактури, доставки, доставчици и още. Напълно разширяема архитектура.</p>
+                    <div class="mt-4 pt-2">
+                        <a href="{{ path('app_login') }}" class="btn btn-primary me-2">Започни</a>
+                        <a href="{{ path('website_documentation_index') }}" class="btn btn-outline-primary">{{ 'title'|trans({}, 'website_documentation') }}</a>
+                    </div>
+                    <p class="text-muted mb-0 mt-3">Текуща версия: v1.0.0</p>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-md-6 mt-4 pt-2 mt-sm-0 pt-sm-0">
+                <img src="{{ asset('website/frontend/images/digital/about.png')}}" class="img-fluid d-block mx-auto" alt="DS ERP Module System — модулна ERP платформа">
+            </div><!--end col-->
+        </div><!--end row-->
+    </div> <!--end container-->
+</section><!--end section-->
+
+<div class="position-relative">
+    <div class="shape overflow-hidden text-color-white">
+        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+<!-- Hero End -->
+
+<!-- Project Description -->
+<section class="section py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h4 class="title mb-3">Цел на проекта</h4>
+                <p class="text-muted lead mb-0">Целта на настоящото проектно предложение е да се разработи иновативен продукт – Open Source платформа за конфигуриране на ERP системи.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0 rounded-circle bg-soft-primary p-3">
+                                <i class="uil uil-lightbulb-alt text-primary h4 mb-0"></i>
+                            </div>
+                            <h6 class="mb-0 ms-3">Иновативен подход</h6>
+                        </div>
+                        <p class="text-muted mb-0 small">Платформата представлява информационно-комуникационно софтуерно решение за създаване на ERP системи по нов, модерен начин.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0 rounded-circle bg-soft-primary p-3">
+                                <i class="uil uil-puzzle-piece text-primary h4 mb-0"></i>
+                            </div>
+                            <h6 class="mb-0 ms-3">Гъвкава конфигурация</h6>
+                        </div>
+                        <p class="text-muted mb-0 small">Модулната архитектура позволява създаване на гъвкави ЕРП системи, които се адаптират към специфичните нужди на всяка организация.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0 rounded-circle bg-soft-primary p-3">
+                                <i class="uil uil-building text-primary h4 mb-0"></i>
+                            </div>
+                            <h6 class="mb-0 ms-3">За всякакъв мащаб</h6>
+                        </div>
+                        <p class="text-muted mb-0 small">Решението отразява нуждите както на малките предприятия, така и на големите корпорации – от стартиращи фирми до установени компании.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Project Description End -->
+
+<!-- Key Features Start -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title mb-4 pb-2">
+                    <h4 class="title mb-4">Ключови характеристики</h4>
+                    <p class="para-desc text-muted mb-0">DS ERP Module System предоставя всичко необходимо за управление на бизнеса. Модулната архитектура позволява лесно разширяване и персонализация.</p>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row align-items-start">
+            <div class="col-lg-3 col-md-6 mt-4 pt-2">
+                <div class="card border-0 features feature-primary feature-clean course-feature p-4 overflow-hidden shadow">
+                    <div class="icons text-start">
+                        <i class="uil uil-layer-group rounded h3 mb-0"></i>
+                    </div>
+                    <div class="card-body p-0 mt-4">
+                        <a href="javascript:void(0)" class="title h5 text-dark">Модулна</a>
+                        <p class="text-muted mt-2">Добавяйте само нужните модули. Продукти, Складове, Поръчки, Фактури, Доставки, Доставчици, Каса, Производство - всеки модул работи самостоятелно или интегриран.</p>
+                        <i class="uil uil-layer-group full-img"></i>
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-lg-3 col-md-6 mt-4 pt-2">
+                <div class="card border-0 features feature-primary feature-clean course-feature p-4 overflow-hidden shadow">
+                    <div class="icons text-start">
+                        <i class="uil uil-expand-arrows rounded h3 mb-0"></i>
+                    </div>
+                    <div class="card-body p-0 mt-4">
+                        <a href="javascript:void(0)" class="title h5 text-dark">Разширяема</a>
+                        <p class="text-muted mt-2">Създавайте персонализирани модули с CoreBaseController. Следвайте ръководството за разработка на модули и добавяйте нова функционалност за минути.</p>
+                        <i class="uil uil-expand-arrows full-img"></i>
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-lg-3 col-md-6 mt-4 pt-2">
+                <div class="card border-0 features feature-primary feature-clean course-feature p-4 overflow-hidden shadow">
+                    <div class="icons text-start">
+                        <i class="uil uil-globe rounded h3 mb-0"></i>
+                    </div>
+                    <div class="card-body p-0 mt-4">
+                        <a href="javascript:void(0)" class="title h5 text-dark">Многоезична</a>
+                        <p class="text-muted mt-2">Пълна поддръжка за български и английски. Система за преводи готова за допълнителни езици. Контрол на достъпа по роли.</p>
+                        <i class="uil uil-globe full-img"></i>
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-lg-3 col-md-6 mt-4 pt-2">
+                <div class="card border-0 features feature-primary feature-clean course-feature p-4 overflow-hidden shadow">
+                    <div class="icons text-start">
+                        <i class="uil uil-book-open rounded h3 mb-0"></i>
+                    </div>
+                    <div class="card-body p-0 mt-4">
+                        <a href="javascript:void(0)" class="title h5 text-dark">Добре документирана</a>
+                        <p class="text-muted mt-2">Подробна документация за всеки модул. Ръководства за инсталация, бърз старт, примери за интеграция и API референция.</p>
+                        <i class="uil uil-book-open full-img"></i>
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <!-- Quickstart -->
+        <div class="container mt-100 mt-60">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="section-title text-center mb-4 pb-2">
+                        <h6 class="text-primary">Бърз старт</h6>
+                        <h4 class="title mb-4">Готови да започнете? Ето как!</h4>
+                        <p class="para-desc mx-auto text-muted mb-0">Клонирайте хранилището и следвайте ръководството за инсталация. Изискват се PHP 8.4+, MySQL/MariaDB.</p>
+                    </div>
+                </div><!--end col-->
+            </div><!--end row-->
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-mg-10 mt-4 pt-2">
+                    <div class="nav-bg p-4 rounded shadow">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="nav nav-pills nav-justified flex-column flex-sm-row rounded bg-soft-light" id="pills-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-link-alt rounded active" id="pills-composer-tab" data-bs-toggle="pill" href="#pills-composer" role="tab" aria-controls="pills-composer" aria-selected="true">
+                                            <div class="text-center">
+                                                <h5 class="title fw-normal mb-0">Composer</h5>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-link-alt rounded" id="pills-migration-tab" data-bs-toggle="pill" href="#pills-migration" role="tab" aria-controls="pills-migration" aria-selected="false">
+                                            <div class="text-center">
+                                                <h5 class="title fw-normal mb-0">Migration</h5>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-link-alt rounded" id="pills-migrate-tab" data-bs-toggle="pill" href="#pills-migrate" role="tab" aria-controls="pills-migrate" aria-selected="false">
+                                            <div class="text-center">
+                                                <h5 class="title fw-normal mb-0">Migrate</h5>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-link-alt rounded" id="pills-sass-tab" data-bs-toggle="pill" href="#pills-sass" role="tab" aria-controls="pills-sass" aria-selected="false">
+                                            <div class="text-center">
+                                                <h5 class="title fw-normal mb-0">SASS</h5>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mt-2">
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-composer" role="tabpanel" aria-labelledby="pills-composer-tab">
+                                        <p class="text-muted fw-bold mb-0"><span class="text-success">$</span> composer install</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-migration" role="tabpanel" aria-labelledby="pills-migration-tab">
+                                        <p class="text-muted fw-bold mb-0"><span class="text-success">$</span> php bin/console make:migration</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-migrate" role="tabpanel" aria-labelledby="pills-migrate-tab">
+                                        <p class="text-muted fw-bold mb-0"><span class="text-success">$</span> php bin/console doctrine:migrations:migrate</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-sass" role="tabpanel" aria-labelledby="pills-sass-tab">
+                                        <p class="text-muted fw-bold mb-0"><span class="text-success">$</span> php bin/console sass:build</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="list-unstyled text-muted mb-0 mt-3">
+                        <li class="list-inline-item me-lg-5 me-4"><span class="text-success h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>Организирайте бизнес данните си</li>
+                        <li class="list-inline-item me-lg-5 me-4"><span class="text-success h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>Разширете с персонализирани модули</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentation section -->
+        <div class="container mt-100 mt-60" id="documentation">
+            <div class="row align-items-start">
+                <div class="col-lg-5 col-md-6 order-1 order-md-2">
+                    <img src="{{ asset('website/frontend/images/integration/1.png') }}" class="img-fluid" alt="Документация и интеграция на модули в DS ERP Module System">
+                </div>
+
+                <div class="col-lg-7 col-md-6 order-2 order-md-1 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                    <div class="section-title me-lg-5">
+                        <h4 class="title mb-4">Документация и интеграция на модули</h4>
+                        <p class="text-muted">Пълни ръководства за инсталация, разработка и интеграция на модули. Научете как да свързвате модули и да създавате персонализирана функционалност.</p>
+                        <ul class="list-unstyled text-muted">
+                            <li class="mb-1"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>Ръководства за инсталация на всеки модул</li>
+                            <li class="mb-1"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>Шаблони и примери за интеграция на модули</li>
+                            <li class="mb-1"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>Създавайте персонализирани модули с CoreBaseController</li>
+                        </ul>
+                        <div class="mt-4">
+                            <a href="{{ path('website_documentation_index') }}" class="btn btn-primary">{{ 'title'|trans({}, 'website_documentation') }} <i data-feather="arrow-right" class="fea icon-sm"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ERP Modules -->
+        <div class="container mt-100 mt-60" id="modules">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="section-title text-center mb-4 pb-2">
+                        <h4 class="title mb-4">ERP модули</h4>
+                        <p class="para-desc mx-auto text-muted mb-0">Комплексни модули за управление на бизнеса.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card border-0 shadow rounded p-4">
+                        <div class="d-flex align-items-center">
+                            <i class="uil uil-package rounded h3 text-primary me-3"></i>
+                            <div>
+                                <h6 class="mb-1">Продукти - Каталог с мерни единици</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card border-0 shadow rounded p-4">
+                        <div class="d-flex align-items-center">
+                            <i class="uil uil-archive rounded h3 text-primary me-3"></i>
+                            <div>
+                                <h6 class="mb-1">Складове - Проследяване на наличност</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card border-0 shadow rounded p-4">
+                        <div class="d-flex align-items-center">
+                            <i class="uil uil-shopping-cart rounded h3 text-primary me-3"></i>
+                            <div>
+                                <h6 class="mb-1">Поръчки - Клиентски поръчки с продукти</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card border-0 shadow rounded p-4">
+                        <div class="d-flex align-items-center">
+                            <i class="uil uil-invoice rounded h3 text-primary me-3"></i>
+                            <div>
+                                <h6 class="mb-1">Фактури - PDF генериране, управление на клиенти</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card border-0 shadow rounded p-4">
+                        <div class="d-flex align-items-center">
+                            <i class="uil uil-truck rounded h3 text-primary me-3"></i>
+                            <div>
+                                <h6 class="mb-1">Доставки - Управление на доставки</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card border-0 shadow rounded p-4">
+                        <div class="d-flex align-items-center">
+                            <i class="uil uil-users-alt rounded h3 text-primary me-3"></i>
+                            <div>
+                                <h6 class="mb-1">Доставчици - Валидация на ЕИК, данни за фирма</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card border-0 shadow rounded p-4">
+                        <div class="d-flex align-items-center">
+                            <i class="uil uil-university rounded h3 text-primary me-3"></i>
+                            <div>
+                                <h6 class="mb-1">Банкови сметки - IBAN, SWIFT, интеграция с фактури</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card border-0 shadow rounded p-4">
+                        <div class="d-flex align-items-center">
+                            <i class="uil uil-money-stack rounded h3 text-primary me-3"></i>
+                            <div>
+                                <h6 class="mb-1">Каса - Приходни и разходни транзакции</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card border-0 shadow rounded p-4">
+                        <div class="d-flex align-items-center">
+                            <i class="uil uil-cog rounded h3 text-primary me-3"></i>
+                            <div>
+                                <h6 class="mb-1">Производство - Материали, складови движения</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--end container-->
+</section><!--end section-->
+<!-- End -->
+
+{% endblock %}

@@ -1,0 +1,24 @@
+# Website menu controller translations
+leftMenu:
+  website: 'Уеб сайт'
+  menus: 'Менюта'
+  blog: 'Блог публикации'
+
+createMenuTitle: 'Създаване на меню'
+editMenuTitle: 'Редактиране на меню'
+
+body: Съдържание
+contentTitle: 'Заглавие в съдържанието'
+createNewRecordTitle: 'Създаване на ново меню'
+description: Описание
+editRecordTitle: 'Редактиране на меню'
+isActive: Активен
+isTarget: 'В нов прозовец'
+menuTitle: 'Заглавие в менюто'
+metaDescription: 'Мета описание'
+metaKeywords: 'Мета думи'
+pageModule: Модул
+redirectUrl: 'Линк за пренасочване'
+routeName: Линк
+title: Заглавие за админ панела
+tags: Тагове

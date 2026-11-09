@@ -1,0 +1,22 @@
+{% extends '/website/frontend/cms_base.html.twig' %}
+
+
+{% block cms_content %}
+<section class="bg-half-170 bg-light d-table w-100">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="title mb-3">{{ activeMenuItem['contentTitle'] ?? 'Static Page' }}</h1>
+                {% if activeMenuItem['description'] is defined and activeMenuItem['description'] %}
+                    <p class="text-muted">{{ activeMenuItem['description'] }}</p>
+                {% endif %}
+                {% if activeMenuItem['body'] is defined and activeMenuItem['body'] %}
+                    <div class="cms-body mt-4">{{ activeMenuItem['body']|raw }}</div>
+                {% else %}
+                    <p class="text-muted">Няма съдържание за тази страница.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,14 @@
+# Blog module translations (domain: website_blog)
+
+leadingImage: 'Главна снимка'
+title: 'Заглавие'
+slug: 'Слъг'
+description: 'Описание'
+content: 'Съдържание'
+isActive: 'Активен'
+createdAt: 'Създадено на'
+editRecordTitle: 'Редактиране на блог публикация'
+createRecordTitle: 'Създаване на блог публикация'
+readMore: 'Прочети още'
+noPosts: 'Няма публикации в блога.'
+backToList: 'Обратно към списъка'

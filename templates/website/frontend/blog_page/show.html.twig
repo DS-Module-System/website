@@ -1,0 +1,140 @@
+{% extends '/website/frontend/cms_base.html.twig' %}
+
+{% block html_page_title %}{{ blog.title }} | {{ site_name }}{% endblock %}
+
+{% block meta_seo %}
+    {% set seo_title = blog.title ~ ' | ' ~ site_name %}
+    {% set seo_description = blog.description|default('')|striptags|trim|slice(0, 160) %}
+    {% set seo_image = absolute_url(asset('website/frontend/images/ds-module-system-logo2.png')) %}
+    {% if blog.leadingImage %}
+        {% set seo_image = absolute_url(asset(blog.leadingImage.webDir ~ '/' ~ blog.leadingImage.uniqueFilename)) %}
+    {% endif %}
+    {% set hreflang_urls = {} %}
+    {% set route_params = app.request.attributes.get('_route_params')|default({})|filter((v, k) => k != '_locale') %}
+    {% for lngCode in lngs %}
+        {% set hreflang_urls = hreflang_urls|merge({
+            (lngCode): absolute_url(path('cms_menu_' ~ menuId ~ '.' ~ lngCode, route_params))
+        }) %}
+    {% endfor %}
+    {% set breadcrumb_schema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+            {
+                '@type': 'ListItem',
+                'position': 1,
+                'name': 'Начало',
+                'item': absolute_url('/')
+            },
+            {
+                '@type': 'ListItem',
+                'position': 2,
+                'name': activeMenuItem['contentTitle'] ?? 'Блог',
+                'item': absolute_url(cms_path_by_id(menuId))
+            },
+            {
+                '@type': 'ListItem',
+                'position': 3,
+                'name': blog.title,
+                'item': app.request.schemeAndHttpHost ~ app.request.pathInfo
+            }
+        ]
+    } %}
+    {% set article_schema = {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        'headline': blog.title,
+        'description': seo_description,
+        'datePublished': blog.createdAt ? blog.createdAt|date('c') : null,
+        'dateModified': blog.updatedAt ? blog.updatedAt|date('c') : (blog.createdAt ? blog.createdAt|date('c') : null),
+        'image': seo_image,
+        'mainEntityOfPage': app.request.schemeAndHttpHost ~ app.request.pathInfo,
+        'author': {
+            '@type': 'Organization',
+            'name': site_name
+        },
+        'publisher': {
+            '@type': 'Organization',
+            'name': site_name,
+            'logo': {
+                '@type': 'ImageObject',
+                'url': absolute_url(asset('website/frontend/images/ds-module-system-logo2.png'))
+            }
+        }
+    } %}
+    {% include 'website/frontend/_seo_meta.html.twig' with {
+        seo_title: seo_title,
+        seo_description: seo_description,
+        seo_keywords: '',
+        seo_image: seo_image,
+        seo_type: 'article',
+        canonical_url: app.request.schemeAndHttpHost ~ app.request.pathInfo,
+        hreflang_urls: hreflang_urls,
+        seo_schemas: [article_schema, breadcrumb_schema]
+    } only %}
+{% endblock %}
+
+{% block cms_content %}
+    <!-- Hero Start -->
+    <section class="bg-half-170 bg-light d-table w-100">
+        <div class="container">
+            <div class="row mt-5 justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <div class="pages-heading">
+                        <h1 class="title mb-0 h4">{{ blog.title }}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="position-breadcrumb">
+                <nav aria-label="breadcrumb" class="d-inline-block">
+                    <ul class="breadcrumb rounded shadow mb-0 px-4 py-2">
+                        <li class="breadcrumb-item"><a href="/">Начало</a></li>
+                        <li class="breadcrumb-item"><a href="{{ cms_path_by_id(menuId) }}">{{ activeMenuItem['contentTitle'] ?? 'Блог' }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ blog.title }}</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <div class="position-relative">
+        <div class="shape overflow-hidden text-color-white">
+            <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Blog Detail Start -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card blog blog-primary rounded border-0 shadow overflow-hidden">
+                        {% if blog.leadingImage %}
+                            <img src="{{ asset(blog.leadingImage.webDir ~ '/' ~ blog.leadingImage.uniqueFilename) }}" class="card-img-top" alt="{{ blog.title }}">
+                        {% endif %}
+                        <div class="card-body content p-4">
+                            <div class="text-muted mb-4">
+                                <i class="uil uil-calendar-alt"></i> {{ blog.createdAt|date('d.m.Y') }}
+                            </div>
+                            {% if blog.description %}
+                                <p class="lead">{{ blog.description }}</p>
+                            {% endif %}
+                            {% if blog.content %}
+                                <div class="blog-content">
+                                    {{ blog.content|raw }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="{{ cms_path_by_id(menuId) }}" class="btn btn-soft-primary">
+                            <i class="uil uil-angle-left-b me-1"></i> {{ 'blog.backToList'|trans({}, 'website_blog') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

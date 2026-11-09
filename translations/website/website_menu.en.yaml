@@ -1,0 +1,24 @@
+# Website menu controller translations
+leftMenu:
+  website: 'Website'
+  menus: 'Menus'
+  blog: 'Blog posts'
+
+createMenuTitle: 'Create menu'
+editMenuTitle: 'Edit menu'
+
+body: Content
+contentTitle: 'Content title'
+createNewRecordTitle: 'Create new menu'
+description: Description
+editRecordTitle: 'Edit menu'
+isActive: Active
+isTarget: 'In new tab'
+menuTitle: 'Menu title'
+metaDescription: 'Meta description'
+metaKeywords: 'Meta keywords'
+pageModule: Module
+redirectUrl: 'Redirect URL'
+routeName: Link
+title: Title
+tags: Tags

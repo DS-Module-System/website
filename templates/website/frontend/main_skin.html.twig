@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+        <title>{% block html_page_title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="{{ asset('res_admin/favicons/favicon.ico') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('res_admin/favicons/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('res_admin/favicons/favicon-16x16.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('res_admin/favicons/apple-icon-180x180.png') }}">
+
+        {% block robots %}
+            <meta name="robots" content="index,follow"/>
+        {% endblock %}
+        {% block meta_seo %}
+            {% set _default_hreflang = {} %}
+            {% set _active_item = get_active_menu_item() %}
+            {% set _route_name = app.request.attributes.get('_route') %}
+            {% set _route_params = app.request.attributes.get('_route_params')|default({}) %}
+            {% if _active_item and _active_item.id is defined %}
+                {% for lngCode in lngs %}
+                    {% set _params = _route_params|filter((v, k) => k != '_locale') %}
+                    {% set _default_hreflang = _default_hreflang|merge({
+                        (lngCode): absolute_url(path('cms_menu_' ~ _active_item.id ~ '.' ~ lngCode, _params))
+                    }) %}
+                {% endfor %}
+            {% elseif _route_name starts with 'website_documentation' %}
+                {% for lngCode in lngs %}
+                    {% set _default_hreflang = _default_hreflang|merge({
+                        (lngCode): absolute_url(path(_route_name, _route_params|merge({_locale: lngCode})))
+                    }) %}
+                {% endfor %}
+            {% endif %}
+            {% include 'website/frontend/_seo_meta.html.twig' with {
+                seo_title: block('html_page_title'),
+                seo_description: '',
+                seo_keywords: '',
+                seo_type: 'website',
+                canonical_url: app.request.schemeAndHttpHost ~ app.request.pathInfo,
+                hreflang_urls: _default_hreflang,
+                seo_schemas: []
+            } only %}
+        {% endblock %}
+
+        {% block stylesheet %}
+            {#        <link rel="stylesheet" href="{{ asset('style/app.css') }}">#}
+            <!-- Css -->
+            <!-- Bootstrap Css -->
+            <link href="{{ asset('website/frontend/css/bootstrap.min.css')}}" id="bootstrap-style" class="theme-opt" rel="stylesheet" type="text/css">
+            <!-- Icons Css -->
+            <link href="{{ asset('website/frontend/libs/@mdi/font/css/materialdesignicons.min.css')}}" rel="stylesheet" type="text/css">
+            <link href="{{ asset('website/frontend/libs/@iconscout/unicons/css/line.css')}}" type="text/css" rel="stylesheet">
+            <!-- Style Css-->
+            <link href="{{ asset('website/frontend/css/style.min.css')}}" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
+        {% endblock %}
+
+        {% block javascripts %}
+            {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
+        {% endblock %}
+        {% block javascript_head %}{% endblock %}
+        {% block stylesheet_head %}{% endblock %}
+        <style>
+            .cookie-popup .cookie-popup-actions button { position: static; }
+        </style>
+    </head>
+    <body>
+
+        <!-- Loader -->
+        <!-- <div id="preloader">
+            <div id="status">
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+            </div>
+        </div> -->
+        <!-- Loader -->
+        
+        <!-- Navbar Start -->
+        <header id="topnav" class="defaultscroll sticky">
+            <div class="container">
+                <!-- Logo container-->
+                <a class="logo" href="/">
+                    <img src="{{ asset('website/frontend/images/ds-module-system-logo2.png')}}" height="24" class="logo-light-mode" alt="DS ERP">
+                    <img src="{{ asset('website/frontend/images/ds-module-system-logo2.png')}}" height="24" class="logo-dark-mode" alt="DS ERP">
+                </a>
+                
+                <div class="menu-extras">
+                    <div class="menu-item">
+                        <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <ul class="buy-button list-inline mb-0">
+                    {% set activeItem = get_active_menu_item() %}
+                    {% set routeName = app.request.attributes.get('_route') %}
+                    {% set routeParams = app.request.attributes.get('_route_params')|default({}) %}
+                    {% for lngCode, lngLabel in {'bg': 'BG', 'en': 'EN'} %}
+                        {% if lngCode != app.request.locale %}
+                            {% if activeItem %}
+                                <li class="list-inline-item mb-0 ps-1">
+                                    <a href="{{ path('cms_menu_' ~ activeItem.id ~ '.' ~ lngCode) }}" class="btn btn-sm btn-soft-secondary">{{ lngLabel }}</a>
+                                </li>
+                            {% elseif routeName starts with 'website_documentation' %}
+                                <li class="list-inline-item mb-0 ps-1">
+                                    <a href="{{ path(routeName, routeParams|merge({_locale: lngCode})) }}" class="btn btn-sm btn-soft-secondary">{{ lngLabel }}</a>
+                                </li>
+                            {% else %}
+                                <li class="list-inline-item mb-0 ps-1">
+                                    <a href="{{ lngCode == 'en' ? '/en' : '/' }}" class="btn btn-sm btn-soft-secondary">{{ lngLabel }}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <li class="list-inline-item button mb-0 ps-1">
+                        <a href="https://github.com/DS-Module-System" class="btn btn-icon btn-primary" target="_blank" rel="noopener" title="GitHub"><i class="uil uil-github"></i></a>
+                    </li>
+                    <li class="list-inline-item button mb-0 ps-1">
+                        <a href="{{ path('app_login') }}" class="btn btn-soft-primary">Демо</a>
+                    </li>
+                </ul>
+        
+                <div id="navigation">
+                    <ul class="navigation-menu">
+                        {% set topMenus = cms_menus_by_tag('top') %}
+                        {% if topMenus is not empty %}
+                            {% for menu in topMenus %}
+                                <li class="{{ menu.selected ? 'active' : '' }}">
+                                    <a href="{{ cms_path_by_id(menu.id) }}" class="sub-menu-item">{{ menu.menuTitle ?? menu.title }}</a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li><a href="/" class="sub-menu-item">Начало</a></li>
+                            <li><a href="{{ cms_path_by_id(2) }}" class="sub-menu-item">Модули</a></li>
+                            <li><a href="{{ cms_path_by_id(3) }}" class="sub-menu-item">Блог</a></li>
+                            <li><a href="{{ cms_path_by_discr('contact_page') ?? '/#contact' }}" class="sub-menu-item">Контакти</a></li>
+                        {% endif %}
+                        <li class="{{ app.request.attributes.get('_route') starts with 'website_documentation' ? 'active' : '' }}">
+                            <a href="{{ path('website_documentation_index') }}" class="sub-menu-item">{{ 'title'|trans({}, 'website_documentation') }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <!-- Navbar End -->
+
+
+        {% block body %}{% endblock %}
+
+        <!-- Footer Start -->
+        <footer class="footer" id="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="footer-py-60">
+                            <div class="row">
+                                <div class="col-lg-5 col-12 mb-4 mb-md-0 pb-2 pb-md-0">
+                                    <a href="/" class="logo-footer">
+                                        <img src="{{ asset('website/frontend/images/ds-module-system-logo2.png')}}" height="24" alt="DS ERP">
+                                    </a>
+                                    <p class="mt-4 text-foot">Open Source платформа за конфигуриране на ERP системи. Модулна система за управление на предприятието – продукти, складове, поръчки, фактури, доставки и още. Подходяща за малки и големи фирми.</p>
+                                    <ul class="list-unstyled social-icon foot-social-icon mb-0 mt-4">
+                                        <li class="list-inline-item mb-0"><a href="https://github.com/DS-Module-System" target="_blank" rel="noopener" class="rounded" title="GitHub"><i class="uil uil-github align-middle"></i></a></li>
+                                        <li class="list-inline-item mb-0"><a href="mailto:support@dsmodulesystem.com" class="rounded" title="Имейл"><i class="uil uil-envelope align-middle"></i></a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                                    <h5 class="footer-head">Навигация</h5>
+                                    <ul class="list-unstyled footer-list mt-4">
+                                        {% set footerMenus = cms_menus_by_tag('footer') %}
+                                        {% if footerMenus is not empty %}
+                                            {% for menu in footerMenus %}
+                                                <li><a href="{{ cms_path_by_id(menu.id) }}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> {{ menu.menuTitle ?? menu.title }}</a></li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <li><a href="/" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Начало</a></li>
+                                            <li><a href="/#modules" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Модули</a></li>
+                                            <li><a href="{{ path('website_documentation_index') }}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> {{ 'title'|trans({}, 'website_documentation') }}</a></li>
+                                            <li><a href="{{ cms_path_by_discr('blog_page') ?? '/blog' }}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Блог</a></li>
+                                            <li><a href="{{ cms_path_by_discr('contact_page') ?? '/#contact' }}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Контакти</a></li>
+                                        {% endif %}
+                                        <li><a href="{{ path('app_login') }}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Вход</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                                    <h5 class="footer-head">Ресурси</h5>
+                                    <ul class="list-unstyled footer-list mt-4">
+                                        <li><a href="https://github.com/DS-Module-System" target="_blank" rel="noopener" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> GitHub</a></li>
+                                        <li><a href="{{ path('website_documentation_index') }}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> {{ 'title'|trans({}, 'website_documentation') }}</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                                    <h5 class="footer-head">Контакт</h5>
+                                    <ul class="list-unstyled footer-list mt-4">
+                                        <li class="d-flex align-items-center mb-2">
+                                            <i class="uil uil-envelope text-primary me-2"></i>
+                                            <a href="mailto:support@dsmodulesystem.com" class="text-foot">support@dsmodulesystem.com</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-py-30 footer-bar">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <div class="text-sm-start">
+                                <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> DS ERP Module System. Open Source.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer End -->
+
+        <!-- Cookies Start -->
+        <div class="card cookie-popup shadow rounded py-3 px-4">
+            <div class="d-flex align-items-start justify-content-between gap-3">
+                <p class="text-muted mb-0 flex-grow-1">Този сайт използва бисквитки за по-добро потребителско изживяване. Използвайки го, приемате нашата <a href="#" class="text-success h6">политика за бисквитки</a></p>
+                <div class="cookie-popup-actions d-flex align-items-center gap-2 flex-shrink-0">
+                    <button type="button" class="btn btn-sm btn-soft-primary cookie-accept-btn">Приемам</button>
+                    <button type="button" class="btn btn-sm btn-soft-secondary" title="Затвори"><i class="uil uil-times"></i></button>
+                </div>
+            </div>
+        </div>
+        <!--Note: Cookies Js including in plugins.init.js (path like; js/plugins.init.js) and Cookies css including in _helper.scss (path like; scss/_helper.scss)-->
+        <!-- Cookies End -->
+       
+        <!-- Back to top -->
+        <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top fs-5"><i data-feather="arrow-up" class="fea icon-sm icons align-middle"></i></a>
+        <!-- Back to top -->
+
+        {% block javascript_bottom %}
+            <!-- Javascript -->
+            <!-- JAVASCRIPT -->
+            <script src="{{ asset('website/frontend/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+            <!-- SLIDER -->
+            <script src="{{ asset('website/frontend/libs/tiny-slider/min/tiny-slider.js')}}"></script>
+            <!-- Main Js -->
+            <script src="{{ asset('website/frontend/libs/feather-icons/feather.min.js')}}"></script>
+            <script src="{{ asset('website/frontend/js/plugins.init.js')}}"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
+            <script src="{{ asset('website/frontend/js/app.js')}}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+        {% endblock %}
+    </body>
+</html>

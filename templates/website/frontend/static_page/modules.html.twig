@@ -1,0 +1,234 @@
+{% extends '/website/frontend/cms_base.html.twig' %}
+
+{% block cms_content %}
+<!-- Hero -->
+<section class="bg-half-170 bg-light d-table w-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center">
+                <span class="badge rounded-pill bg-soft-primary mb-3">ERP Модули</span>
+                <h1 class="fw-bold mb-3">Модули на системата</h1>
+                <p class="para-desc text-muted mx-auto">Открийте възможностите на всяка част от платформата. Всеки модул е проектиран да решава конкретни бизнес задачи и работи в хармония с останалите.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modules Grid -->
+<section class="section">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Продукти -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden position-relative">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="flex-shrink-0 rounded-3 bg-soft-primary p-3">
+                                <i class="uil uil-package text-primary h3 mb-0"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="mb-1">Продукти</h5>
+                                <span class="badge bg-soft-primary">Каталог</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">Създавайте и поддържайте продуктовия каталог с мерни единици (кг, л, бр). Търсене и филтриране по име и мярка. Основата за всички операции със стоки.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Складове -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="flex-shrink-0 rounded-3 bg-soft-primary p-3">
+                                <i class="uil uil-archive text-primary h3 mb-0"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="mb-1">Складове</h5>
+                                <span class="badge bg-soft-primary">Наличности</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">Управление на множество складове с проследяване на наличност по продукт. Автоматично обновяване при пристигане на доставки. Винаги актуална картина на стоковите наличности.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Поръчки -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="flex-shrink-0 rounded-3 bg-soft-primary p-3">
+                                <i class="uil uil-shopping-cart text-primary h3 mb-0"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="mb-1">Поръчки</h5>
+                                <span class="badge bg-soft-primary">Продажби</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">Клиентски поръчки с продукти, цени и количества. Проверка на наличност от склада. Автоматично изчисляване на общи суми. Свързаност с клиенти и складове.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Фактури -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="flex-shrink-0 rounded-3 bg-soft-primary p-3">
+                                <i class="uil uil-invoice text-primary h3 mb-0"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="mb-1">Фактури</h5>
+                                <span class="badge bg-soft-primary">Биллинг</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">Професионални фактури с PDF експорт и изпращане по email. Проформи, кредитни и дебитни бележки, плащания. Персонализирани шаблони и автоматично преобразуване на суми в текст. Интеграция с банкови сметки.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Доставки -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="flex-shrink-0 rounded-3 bg-soft-primary p-3">
+                                <i class="uil uil-truck text-primary h3 mb-0"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="mb-1">Доставки</h5>
+                                <span class="badge bg-soft-primary">Логистика</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">Регистриране и проследяване на входящи доставки. Автоматично обновяване на складови наличности при приемане. Свързаност с доставчици и продукти.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Доставчици -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="flex-shrink-0 rounded-3 bg-soft-primary p-3">
+                                <i class="uil uil-users-alt text-primary h3 mb-0"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="mb-1">Доставчици</h5>
+                                <span class="badge bg-soft-primary">Партньори</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">База данни с доставчици. Валидация на ЕИК и автоматично попълване на фирмени данни. Контактна информация, отговорни лица. API за интеграция с фактури.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Клиенти -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="flex-shrink-0 rounded-3 bg-soft-primary p-3">
+                                <i class="uil uil-building text-primary h3 mb-0"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="mb-1">Клиенти</h5>
+                                <span class="badge bg-soft-primary">Партньори</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">Управление на клиентска база с фирмени данни и контактна информация. Адреси за фактуриране. Основа за поръчки, фактури и проследяване на продажбите.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Банкови сметки -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="flex-shrink-0 rounded-3 bg-soft-primary p-3">
+                                <i class="uil uil-university text-primary h3 mb-0"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="mb-1">Банкови сметки</h5>
+                                <span class="badge bg-soft-primary">Финанси</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">Управление на банкови сметки с IBAN, SWIFT, адрес на банката. Директна връзка с фактури за показване на платежни реквизити. Подготовка за банкови преводи.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Каса -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="flex-shrink-0 rounded-3 bg-soft-primary p-3">
+                                <i class="uil uil-money-stack text-primary h3 mb-0"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="mb-1">Каса</h5>
+                                <span class="badge bg-soft-primary">Транзакции</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">Приходни и разходни касови транзакции. Проследяване на дата, сума и тип. Търсене по период и тип движение. Отчитане на въвеждащия оператор.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Производство -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="flex-shrink-0 rounded-3 bg-soft-primary p-3">
+                                <i class="uil uil-cog text-primary h3 mb-0"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="mb-1">Производство</h5>
+                                <span class="badge bg-soft-primary">Операции</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">Регистриране на производствени операции. Отчитане на използвани материали и готов продукт. Автоматични складови движения – изписване на материали, вписване на продукция.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Уеб сайт / онлайн магазин -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="flex-shrink-0 rounded-3 bg-soft-primary p-3">
+                                <i class="uil uil-globe text-primary h3 mb-0"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="mb-1">Уеб сайт / онлайн магазин</h5>
+                                <span class="badge bg-soft-primary">Уеб</span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">Публично уеб присъствие с CMS менюта, начална, статични и контактни страници, блог и пренасочвания. Многоезичност, SEO, теми и оптимизация на изображения – основа за сайт и онлайн представяне на бизнеса.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="row mt-5 pt-5">
+            <div class="col-12 text-center">
+                <div class="card border-0 bg-soft-primary rounded-3 p-4">
+                    <div class="card-body">
+                        <h5 class="text-primary mb-2">Готови да опитате?</h5>
+                        <p class="text-muted mb-3">Всички модули са достъпни след вход в системата.</p>
+                        <a href="{{ path('app_login') }}" class="btn btn-primary">Вход в системата</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

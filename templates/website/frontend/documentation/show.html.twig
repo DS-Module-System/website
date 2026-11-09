@@ -1,0 +1,135 @@
+{% extends 'website/frontend/main_skin.html.twig' %}
+
+{% block html_page_title %}{{ module.title }} | {{ 'title_suffix'|trans({}, 'website_documentation') }}{% endblock %}
+
+{% block meta_seo %}
+    {% set seo_description = module.summary|default('')|striptags|trim|slice(0, 160) %}
+    {% set hreflang_urls = {} %}
+    {% for lngCode in lngs %}
+        {% set hreflang_urls = hreflang_urls|merge({
+            (lngCode): absolute_url(path('website_documentation_show', {section: module.section, slug: module.slug, _locale: lngCode}))
+        }) %}
+    {% endfor %}
+    {% set breadcrumb_items = [
+        {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': ('title'|trans({}, 'website_documentation')),
+            'item': absolute_url(path('website_documentation_index'))
+        },
+        {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': module.sectionTitle
+        }
+    ] %}
+    {% if module.groupTitle %}
+        {% set breadcrumb_items = breadcrumb_items|merge([{
+            '@type': 'ListItem',
+            'position': 3,
+            'name': module.groupTitle
+        }, {
+            '@type': 'ListItem',
+            'position': 4,
+            'name': module.pageTitle|default(module.title),
+            'item': app.request.schemeAndHttpHost ~ app.request.pathInfo
+        }]) %}
+    {% else %}
+        {% set breadcrumb_items = breadcrumb_items|merge([{
+            '@type': 'ListItem',
+            'position': 3,
+            'name': module.title,
+            'item': app.request.schemeAndHttpHost ~ app.request.pathInfo
+        }]) %}
+    {% endif %}
+    {% set breadcrumb_schema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': breadcrumb_items
+    } %}
+    {% include 'website/frontend/_seo_meta.html.twig' with {
+        seo_title: block('html_page_title'),
+        seo_description: seo_description,
+        seo_keywords: '',
+        seo_type: 'article',
+        canonical_url: app.request.schemeAndHttpHost ~ app.request.pathInfo,
+        hreflang_urls: hreflang_urls,
+        seo_schemas: [breadcrumb_schema]
+    } only %}
+{% endblock %}
+
+{% block stylesheet_head %}
+    {{ parent() }}
+    <style>
+        .docs-layout { padding-top: 100px; padding-bottom: 80px; }
+        .docs-sidebar { position: sticky; top: 100px; max-height: calc(100vh - 120px); overflow-y: auto; }
+        .docs-sidebar a { text-decoration: none; font-size: 0.9rem; line-height: 1.35; }
+        .docs-sidebar a:hover { color: var(--bs-primary) !important; }
+        .docs-content h1, .docs-content h2, .docs-content h3, .docs-content h4 { margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .docs-content h1:first-child { margin-top: 0; }
+        .docs-content pre { background: #f8f9fa; padding: 1rem; border-radius: 0.35rem; overflow-x: auto; }
+        .docs-content code { font-size: 0.9em; }
+        .docs-content table { width: 100%; margin-bottom: 1rem; }
+        .docs-content table th, .docs-content table td { border: 1px solid #dee2e6; padding: 0.5rem; vertical-align: top; }
+        .docs-content img { max-width: 100%; height: auto; }
+        .docs-diagram img { border: 1px solid #e9ecef; border-radius: 0.35rem; background: #fff; }
+    </style>
+{% endblock %}
+
+{% block body %}
+<section class="docs-layout bg-white">
+    <div class="container">
+        <div class="row">
+            <aside class="col-lg-3 d-none d-lg-block mb-4">
+                {% include 'website/frontend/documentation/_sidebar.html.twig' %}
+            </aside>
+            <div class="col-lg-9">
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{{ path('website_documentation_index') }}">{{ 'title'|trans({}, 'website_documentation') }}</a></li>
+                        <li class="breadcrumb-item">{{ module.sectionTitle }}</li>
+                        {% if module.groupTitle %}
+                            <li class="breadcrumb-item">{{ module.groupTitle }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ module.pageTitle|default(module.title) }}</li>
+                        {% else %}
+                            <li class="breadcrumb-item active" aria-current="page">{{ module.title }}</li>
+                        {% endif %}
+                    </ol>
+                </nav>
+
+                <h1 class="title mb-3">{{ module.title }}</h1>
+                {% if module.summary %}
+                    <p class="text-muted mb-4">{{ module.summary }}</p>
+                {% endif %}
+
+                <div class="docs-content">
+                    {{ html|raw }}
+                </div>
+
+                {% if module.diagrams is not empty %}
+                    <hr class="my-5">
+                    <h2 class="h4 mb-4">{{ 'diagrams'|trans({}, 'website_documentation') }}</h2>
+                    <div class="row">
+                        {% for diagram in module.diagrams %}
+                            <div class="col-12 mb-4 docs-diagram">
+                                <h3 class="h6 mb-2">{{ diagram.label }}</h3>
+                                <a href="{{ path('website_documentation_asset', {section: module.section, slug: module.slug, file: diagram.file}) }}" target="_blank" rel="noopener">
+                                    <img src="{{ path('website_documentation_asset', {section: module.section, slug: module.slug, file: diagram.file}) }}"
+                                         alt="{{ diagram.label }}"
+                                         class="img-fluid shadow-sm">
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="d-lg-none mt-5">
+                    <hr>
+                    <h2 class="h5 mb-3">{{ 'navigation'|trans({}, 'website_documentation') }}</h2>
+                    {% include 'website/frontend/documentation/_sidebar.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

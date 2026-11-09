@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheet %}
+    {{ parent() }}
+    <style>
+        .dd-collapse, .dd-expand {
+            display: none;
+        }
+    </style>
+{% endblock %}
+{# {% block javascript %}
+{#{{ parent() }}#}
+{#{{ encore_entry_script_tags('admin_app_menu_tree') }}#}
+{#{% endblock %} #}
+
+{% block importmap %}{{ importmap('website_menu_tree') }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12 mb-3">
+            <!-- Example single danger button -->
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    Добави ново меню
+                </button>
+                <ul class="dropdown-menu">
+                    {% if pageModules %}
+                        {% for key, pageModule in pageModules %}
+                            <li><span style="cursor: pointer;" class="dropdown-item" data-bs-toggle="modal"
+                                      data-bs-target="#primary-header-modal-{{ key }}">{{ pageModule.title }}</span>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        {% if pageModules %}
+            {% for key, pageModule in pageModules %}
+                <div id="primary-header-modal-{{ key }}" class="modal fade" tabindex="-1" role="dialog"
+                     aria-labelledby="primary-header-modalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Добави ново меню - {{ pageModule.title }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form method="post">
+                                <div class="modal-body">
+                                    <label>Меню</label>
+                                    <select name="menu" class="form-select" required>
+                                        {% if menus %}
+                                            <option></option>
+                                            {% for menu in menus %}
+                                                <option value="{{ menu.id }}">
+                                                    {% if menu.lvl > 0 %}
+                                                        {% for i in range(0, menu.lvl) %}
+                                                            &nbsp;&nbsp;
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                    {{ menu.title }}
+                                                </option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary mb-2" name="addAfter" value="{{ key }}">Добави след
+                                    </button>
+                                    <button class="btn btn-primary mb-2" name="addChild" value="{{ key }}">Добави
+                                        вътрешно
+                                    </button>
+                                </div>
+                            </form>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="dd" id="nestable" data-url-get-all-nodes="{{ path('website_menu_get_tree') }}" data-url-edit-link="{{ path('website_menu_tree_edit', {id: 0}) }}"></div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 250px;">
+        <div class="col-12">
+            <a class="btn btn-danger btn-sm" href="{{ path('website_menu_clear_cache') }}" target="_blank" onclick="return confirm('Are you sure?')">
+                Изтриване на кеша
+            </a>
+        </div>
+    </div>
+{% endblock %}

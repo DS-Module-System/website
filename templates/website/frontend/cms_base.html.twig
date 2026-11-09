@@ -1,0 +1,46 @@
+
+{% set activeMenuItem = get_active_menu_item() ?? {} %}
+{% set locale = app.request.locale %}
+{% set lng = activeMenuItem['lngs'][locale] ?? {} %}
+{% set skinFile = (activeMenuItem['skin'] is defined and activeMenuItem['skin']) ? activeMenuItem['skin'].getSkinFile : '/website/frontend/main_skin.html.twig' %}
+{% extends skinFile %}
+
+{% block html_page_title %}{{ lng.pageTitle ?? lng.contentTitle ?? site_name }}{% endblock %}
+
+{% block meta_seo %}
+    {% set seo_title = lng.pageTitle ?? lng.contentTitle ?? site_name %}
+    {% set seo_description = lng.metaDescription|default('') %}
+    {% set seo_keywords = lng.metaKeywords|default('') %}
+    {% set hreflang_urls = {} %}
+    {% set route_params = app.request.attributes.get('_route_params')|default({})|filter((v, k) => k != '_locale') %}
+    {% if activeMenuItem.id is defined %}
+        {% for lngCode in lngs %}
+            {% set hreflang_urls = hreflang_urls|merge({
+                (lngCode): absolute_url(path('cms_menu_' ~ activeMenuItem.id ~ '.' ~ lngCode, route_params))
+            }) %}
+        {% endfor %}
+    {% endif %}
+    {% include 'website/frontend/_seo_meta.html.twig' with {
+        seo_title: seo_title,
+        seo_description: seo_description,
+        seo_keywords: seo_keywords,
+        seo_type: 'website',
+        canonical_url: app.request.schemeAndHttpHost ~ app.request.pathInfo,
+        hreflang_urls: hreflang_urls,
+        seo_schemas: []
+    } only %}
+{% endblock %}
+
+{% block stylesheet_head %}
+    {{ parent() }}
+    {% if activeMenuItem.headHtml is defined %}{{ activeMenuItem.headHtml|raw }}{% endif %}
+    {% if lng.headHtml is defined %}{{ lng.headHtml|raw }}{% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if lng.preBodyHtml is defined %}{{ lng.preBodyHtml|raw }}{% endif %}
+    {% if activeMenuItem.preBodyHtml is defined %}{{ activeMenuItem.preBodyHtml|raw }}{% endif %}
+    {% block cms_content %}{% endblock %}
+    {% if lng.posBodyHtml is defined %}{{ lng.posBodyHtml|raw }}{% endif %}
+    {% if activeMenuItem.posBodyHtml is defined %}{{ activeMenuItem.posBodyHtml|raw }}{% endif %}
+{% endblock %}

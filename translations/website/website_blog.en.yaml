@@ -1,0 +1,13 @@
+# Blog module translations (domain: website_blog)
+leadingImage: 'Leading image'
+title: 'Title'
+slug: 'Slug'
+description: 'Description'
+content: 'Content'
+isActive: 'Active'
+createdAt: 'Created at'
+editRecordTitle: 'Edit blog post'
+createRecordTitle: 'Create blog post'
+readMore: 'Read more'
+noPosts: 'No blog posts yet.'
+backToList: 'Back to list'
